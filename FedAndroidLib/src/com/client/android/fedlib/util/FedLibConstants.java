@@ -44,5 +44,6 @@ public class FedLibConstants {
 	
 	//Generic constants
 	public static final int PER_PAGE = 20;
+	public static final String KEY_TOTAL_COUNT ="total_count";
 
 }

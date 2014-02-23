@@ -3,6 +3,8 @@
  */
 package com.client.android.fedlib.managers;
 
+import android.content.Context;
+
 import com.client.android.fedlib.interfaces.EventEntriesManager;
 import com.client.android.fedlib.interfaces.FoodEntriesManager;
 import com.client.android.fedlib.interfaces.UserManager;
@@ -20,6 +22,8 @@ public enum AppManager {
 	private UserManager mUserManager;
 	private FoodEntriesManager mFoodEntriesManager;
 	private EventEntriesManager mEventEntriesManager;
+	private Context mApplicationContext;
+	
 	//----------------------------------------------------------------------------------------------------
 	//Getters/Setters
 	//----------------------------------------------------------------------------------------------------
@@ -42,6 +46,20 @@ public enum AppManager {
 			this.mEventEntriesManager = new DefaultEventEntriesManager();
 		}
 		return this.mEventEntriesManager;
+	}
+
+	/**
+	 * @return the applicationContext
+	 */
+	public Context getApplicationContext() {
+		return mApplicationContext;
+	}
+
+	/**
+	 * @param aApplicationContext the applicationContext to set
+	 */
+	public void setApplicationContext(Context aApplicationContext) {
+		this.mApplicationContext = aApplicationContext;
 	}
 	
 

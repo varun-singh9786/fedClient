@@ -1,29 +1,21 @@
 package com.client.android.fed.activities;
 
-import java.util.ArrayList;
-
 import org.apache.http.HttpResponse;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
-import android.widget.ListView;
 
 import com.client.android.fed.R;
-import com.client.android.fed.adapters.EventEntriesAdapter;
-import com.client.android.fedlib.listeners.EventEntriesListingListener;
 import com.client.android.fedlib.listeners.NetworkHelperListener;
-import com.client.android.fedlib.managers.AppManager;
-import com.client.android.fedlib.models.EventEntry;
-import com.client.android.fedlib.models.Response;
 import com.client.plusclientwrapper.classes.PlusClientWrapper;
 import com.client.plusclientwrapper.listeners.PlusClientWrapperListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.plus.model.people.Person;
 
-public class MainActivity extends Activity implements PlusClientWrapperListener, NetworkHelperListener{
+public class MainActivity extends ActionBarActivity implements PlusClientWrapperListener, NetworkHelperListener{
 	
 	//--------------------------------------------------------------------------------
 	//Properties
@@ -37,6 +29,9 @@ public class MainActivity extends Activity implements PlusClientWrapperListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        Fragment foodEntriesFragment = FoodEntriesFragment.newInstance();
+//        FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
+//        ft.add(android.R.id.content, foodEntriesFragment, FoodEntriesFragment.class.getSimpleName()).commit();
 //        AppManager.APP_MANAGER.getUserManager().createUser(new User(0, "Varun", "singh.varun@gslab.com", "123456"), new UserCreationListener() {
 //			
 //			@Override
@@ -171,42 +166,38 @@ public class MainActivity extends Activity implements PlusClientWrapperListener,
 //		EventEntriesAdapter eventEntriesAdapter = new EventEntriesAdapter(list, MainActivity.this);
 //		listView.setAdapter(eventEntriesAdapter);
         
-        AppManager.APP_MANAGER.getEventEntriesManager().listEventEntries(1, "123456", new EventEntriesListingListener() {
-			
-			@Override
-			public void onEventEntriesListReceived(
-					ArrayList<EventEntry> aEventEntriesList) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onEventEntriesListFailed(Response aResponse) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+//        AppManager.APP_MANAGER.getEventEntriesManager().listEventEntries(1, "123456", new EventEntriesListingListener() {
+//			
+//			@Override
+//			public void onEventEntriesListReceived(
+//					ArrayList<EventEntry> aEventEntriesList) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//			
+//			@Override
+//			public void onEventEntriesListFailed(Response aResponse) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		});
         
         
-        /*AppManager.APP_MANAGER.getEventEntriesManager().listEventEntries(1, "123456", new EventEntriesListingListener() {
-			
-			@Override
-			public void onEventEntriesListReceived(
-					ArrayList<EventEntry> aEventEntriesList) {
-				Log.v(TAG, "onEventEntriesListReceived#called");
-				ListView listView = (ListView) findViewById(R.id.list);
-				EventEntriesAdapter eventEntriesAdapter = new EventEntriesAdapter(aEventEntriesList, MainActivity.this);
-				listView.setAdapter(eventEntriesAdapter);
-				
-			}
-			
-			@Override
-			public void onEventEntriesListFailed(Response aResponse) {
-				// TODO Auto-generated method stub
-				Log.v(TAG, "onEventEntriesListFailed#called");
-				
-			}
-		});*/
+//        AppManager.APP_MANAGER.getFoodEntriesManager().listFoodEntries(1, "123456", new FoodEntriesListingListener() {
+//			
+//			@Override
+//			public void onFoodEntriesListReceived(ArrayList<FoodEntry> aFoodEntriesList) {
+//				// TODO Auto-generated method stub
+//				Log.v(TAG, "onCreate#foodEntries: " + aFoodEntriesList);
+//				
+//			}
+//			
+//			@Override
+//			public void onFoodEntriesListFailed(Response aResponse) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		});
     }
         
     

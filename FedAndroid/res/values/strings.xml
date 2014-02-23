@@ -12,4 +12,6 @@
     <string name="feeling">Feeling&#8230;</string>
     <string name="worst">Worst</string>
     <string name="best">Best</string>
+    <string name="enter_date_time">Enter Date/Time</string>
+    <string name="feeling_question_hint">How Are you feeling?</string>
 </resources>

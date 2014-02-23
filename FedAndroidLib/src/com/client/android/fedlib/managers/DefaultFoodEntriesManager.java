@@ -6,8 +6,11 @@ package com.client.android.fedlib.managers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.http.HttpResponse;
+
+import android.util.Log;
 
 import com.client.android.fedlib.helpers.NetworkHelper;
 import com.client.android.fedlib.helpers.StringHelper;
@@ -37,7 +40,8 @@ public class DefaultFoodEntriesManager extends Manager implements
 	//------------------------------------------------------------------------
 	//Properties
 	//------------------------------------------------------------------------
-	private int mPageNumber;
+	private static final String TAG = DefaultFoodEntriesManager.class.getSimpleName();
+	private int mPageNumber = 1;
 	//TODO implement totalCount
 	//------------------------------------------------------------------------
 	//Implemented Interface methods
@@ -53,9 +57,10 @@ public class DefaultFoodEntriesManager extends Manager implements
 	
 	@Override
 	public void listFoodEntries(long aUserId, String aRememberToken, final FoodEntriesListingListener aListener) {	
-		String urlString = UrlManager.getListEventEntriesUrl(aUserId, this.mPageNumber, FedLibConstants.PER_PAGE, aRememberToken);
+		String urlString = UrlManager.getListFoodEntriesUrl(aUserId, this.mPageNumber, FedLibConstants.PER_PAGE, aRememberToken);
 		if (!StringHelper.isValid(urlString)) {
 			//TODO Handle this
+			Log.v(TAG, "listFoodEntries#urlString: " + urlString);
 			return;
 		}
 		
@@ -65,15 +70,29 @@ public class DefaultFoodEntriesManager extends Manager implements
 			public void onSuccess(String aResponseString) {
 				// TODO Auto-generated method stub
 				try {
-					HashMap<String, ArrayList<FoodEntry>> map = mObjectMapper.readValue(aResponseString, new TypeReference<HashMap<String, ArrayList<FoodEntry>>>() {});
-					aListener.onFoodEntriesListReceived(map.get(FedLibConstants.KEY_FOOD_ENTRIES));
+					@SuppressWarnings("unchecked")
+					HashMap<String, Object> map = mObjectMapper.readValue(aResponseString, HashMap.class);
+					
+					@SuppressWarnings("unchecked")
+					ArrayList<Map<String, Object>> foodEntryJsonList = (ArrayList<Map<String, Object>>) map.get(FedLibConstants.KEY_FOOD_ENTRIES);
+					
+					ArrayList<FoodEntry> foodEntries = new ArrayList<FoodEntry>();
+					for (Map<String, Object> foodEntryMap : foodEntryJsonList) {
+						FoodEntry foodEntry = mObjectMapper.convertValue(foodEntryMap, FoodEntry.class);
+						foodEntries.add(foodEntry);
+					}
+					
+					aListener.onFoodEntriesListReceived(foodEntries);
 					
 				} catch (JsonParseException e) {
 					// TODO Auto-generated catch block
+					e.printStackTrace();
 				} catch (JsonMappingException e) {
 					// TODO Auto-generated catch block
+					e.printStackTrace();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				
 			}

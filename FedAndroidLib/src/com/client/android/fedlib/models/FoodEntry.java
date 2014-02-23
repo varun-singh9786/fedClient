@@ -20,12 +20,27 @@ public class FoodEntry {
 	//--------------------------------------------------------------------------------
 	//Properties
 	//--------------------------------------------------------------------------------
+	private long mId;
 	private long mTimestamp;
 	private ArrayList<Food> mFoodList;
 	
 	//----------------------------------------------------------------------------------------------------
 	//Getters/Setters
 	//----------------------------------------------------------------------------------------------------
+	
+	/**
+	 * @return the id
+	 */
+	@JsonProperty("id")
+	public long getId() {
+		return this.mId;
+	}
+	/**
+	 * @param aId the id to set
+	 */
+	public void setId(long aId) {
+		this.mId = aId;
+	}
 	/**
 	 * @return the timestamp
 	 */

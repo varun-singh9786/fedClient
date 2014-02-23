@@ -3,6 +3,7 @@ package com.client.android.fedlib.managers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.http.HttpResponse;
 
@@ -36,7 +37,9 @@ public class DefaultEventEntriesManager extends Manager implements EventEntriesM
 	//Properties
 	//------------------------------------------------------------------------
 	private static final String TAG = DefaultEventEntriesManager.class.getSimpleName();
-	private int mPageNumber = 1;
+	private int mListPageNumber = 1;
+	private int mListTotalSize = 0;
+	private int mListCurrentSize = -1;
 	//TODO implement totalCount
 
 	
@@ -45,7 +48,7 @@ public class DefaultEventEntriesManager extends Manager implements EventEntriesM
 	//------------------------------------------------------------------------
 
 
-	@Override
+	@Override	
 	public void listEventEntries(long aUserId, int aPageNum, int aCount,
 			String aRememberToken, EventEntriesListingListener aListener) {
 		// TODO Auto-generated method stub
@@ -56,7 +59,10 @@ public class DefaultEventEntriesManager extends Manager implements EventEntriesM
 	@Override
 	public void listEventEntries(long aUserId, String aRememberToken,
 			final EventEntriesListingListener aListener) {
-		String urlString = UrlManager.getListEventEntriesUrl(aUserId, this.mPageNumber, FedLibConstants.PER_PAGE, aRememberToken);
+		if (this.mListCurrentSize >= this.mListTotalSize) {
+			return;
+		}
+		String urlString = UrlManager.getListEventEntriesUrl(aUserId, this.mListPageNumber, FedLibConstants.PER_PAGE, aRememberToken);
 		if (!StringHelper.isValid(urlString)) {
 			//TODO Handle this
 			return;
@@ -68,9 +74,20 @@ public class DefaultEventEntriesManager extends Manager implements EventEntriesM
 			public void onSuccess(String aResponseString) {
 				// TODO Auto-generated method stub
 				try {
-					HashMap<String, ArrayList<EventEntry>> map = mObjectMapper.readValue(aResponseString, new TypeReference<HashMap<String, ArrayList<EventEntry>>>() {});
-					mPageNumber++;
-					aListener.onEventEntriesListReceived(map.get(FedLibConstants.KEY_EVENT_ENTRIES));
+					@SuppressWarnings("unchecked")
+					Map<String, Object> map = mObjectMapper.readValue(aResponseString, Map.class);
+					@SuppressWarnings("unchecked")
+					ArrayList<Map<String, Object>> eventEntriesJsonList = (ArrayList<Map<String, Object>>) map.get(FedLibConstants.KEY_EVENT_ENTRIES);
+					ArrayList<EventEntry> eventEntries = new ArrayList<EventEntry>();
+					for (Map<String, Object> eventEntryMap : eventEntriesJsonList) {
+						EventEntry eventEntry = mObjectMapper.convertValue(eventEntryMap, EventEntry.class);
+						eventEntries.add(eventEntry);
+					}
+					mListPageNumber++;
+					mListCurrentSize += eventEntries.size();
+					mListTotalSize = ((Integer) map.get(FedLibConstants.KEY_TOTAL_COUNT)).intValue();
+					Log.v(TAG, "listEventEntries#totalSize: " + mListTotalSize);
+					aListener.onEventEntriesListReceived(eventEntries);
 					
 				} catch (JsonParseException e) {
 					// TODO Auto-generated catch block

@@ -295,7 +295,9 @@ public class NetworkHelper {
 		@Override
 		protected void onPostExecute(Void aResult) {
 			super.onPostExecute(aResult);
-
+			if (mHttpResponse == null) {
+				return;
+			}
 			StatusLine statusLine = mHttpResponse.getStatusLine();
 			if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
 				mNetworkHelperListener.onFailure(statusLine.getReasonPhrase());

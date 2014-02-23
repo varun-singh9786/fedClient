@@ -89,14 +89,14 @@ public class UrlManager {
 		if (!StringHelper.isValid(aRememberToken)) {
 			return null;
 		}
-		return SCHEME + "://" + BASE_URL + "/" + LIST_FOOD_ENTRIES.replaceAll(":remember_token", aRememberToken).replaceAll(":page", String.valueOf(aPageNum)).replaceAll(":count", String.valueOf(aCount));
+		return SCHEME + "://" + BASE_URL + "/" + LIST_FOOD_ENTRIES.replaceAll(":user_id", String.valueOf(aUserId)).replaceAll(":remember_token", aRememberToken).replaceAll(":page", String.valueOf(aPageNum)).replaceAll(":count", String.valueOf(aCount));
 	}
 	
 	public static String getCreateFoodEntriesUrl(long aUserId) {
 		if (aUserId <= 0) {
 			return null;
 		}
-		return SCHEME + "://" + BASE_URL + "/" + CREATE_FOOD_ENTRIES;
+		return SCHEME + "://" + BASE_URL + "/" + CREATE_FOOD_ENTRIES.replaceAll(":user_id", String.valueOf(aUserId));
 	}
 	
 	public static String getShowFoodEntriesUrl(long aUserId, long aId, String aRememberToken) {
@@ -111,7 +111,7 @@ public class UrlManager {
 		if (!StringHelper.isValid(aRememberToken)) {
 			return null;
 		}
-		return SCHEME + "://" + BASE_URL + "/" + MANAGE_FOOD_ENTRIES_GET.replaceAll(":id", String.valueOf(aId)).replaceAll(":remember_token", aRememberToken);
+		return SCHEME + "://" + BASE_URL + "/" + MANAGE_FOOD_ENTRIES_GET.replaceAll(":user_id", String.valueOf(aUserId)).replaceAll(":id", String.valueOf(aId)).replaceAll(":remember_token", aRememberToken);
 	}
 	
 	public static String getUpdateFoodEntriessUrl(long aUserId, long aId) {
@@ -123,7 +123,7 @@ public class UrlManager {
 			return null;
 		}
 		
-		return SCHEME + "://" + BASE_URL + "/" + MANAGE_FOOD_ENTRIES_POST.replaceAll(":id", String.valueOf(aId));
+		return SCHEME + "://" + BASE_URL + "/" + MANAGE_FOOD_ENTRIES_POST.replaceAll(":user_id", String.valueOf(aUserId)).replaceAll(":id", String.valueOf(aId));
 	}
 	
 	public static String getDeleteFoodEntriesUrl(long aUserId, long aId, String aRememberToken) {
@@ -138,7 +138,7 @@ public class UrlManager {
 		if (!StringHelper.isValid(aRememberToken)) {
 			return null;
 		}
-		return SCHEME + "://" + BASE_URL + "/" + MANAGE_FOOD_ENTRIES_GET.replaceAll(":id", String.valueOf(aId)).replaceAll(":remember_token", aRememberToken);
+		return SCHEME + "://" + BASE_URL + "/" + MANAGE_FOOD_ENTRIES_GET.replaceAll(":user_id", String.valueOf(aUserId)).replaceAll(":id", String.valueOf(aId)).replaceAll(":remember_token", aRememberToken);
 	}
 	
 	//Event entry
@@ -167,7 +167,7 @@ public class UrlManager {
 			return null;
 		}
 		
-		return SCHEME + "://" + BASE_URL + "/" + CREATE_EVENT_ENTRIES;
+		return SCHEME + "://" + BASE_URL + "/" + CREATE_EVENT_ENTRIES.replaceAll(":user_id", String.valueOf(aUserId));
 	}
 	
 	public static String getShowEventEntriessUrl(long aUserId, long aId, String aRememberToken) {
@@ -180,7 +180,7 @@ public class UrlManager {
 		if (!StringHelper.isValid(aRememberToken)) {
 			return null;
 		}
-		return SCHEME + "://" + BASE_URL + "/" + MANAGE_EVENT_ENTRIES_GET.replaceAll(":id", String.valueOf(aId)).replaceAll(":remember_token", aRememberToken);
+		return SCHEME + "://" + BASE_URL + "/" + MANAGE_EVENT_ENTRIES_GET.replaceAll(":user_id", String.valueOf(aUserId)).replaceAll(":id", String.valueOf(aId)).replaceAll(":remember_token", aRememberToken);
 	}
 	
 	public static String getUpdateEventEntriesUrl(long aUserId, long aId) {
@@ -191,7 +191,7 @@ public class UrlManager {
 		if (aId <= 0) {
 			return null;
 		}
-		return SCHEME + "://" + BASE_URL + "/" + MANAGE_EVENT_ENTRIES_POST.replaceAll(":id", String.valueOf(aId));
+		return SCHEME + "://" + BASE_URL + "/" + MANAGE_EVENT_ENTRIES_POST.replaceAll(":user_id", String.valueOf(aUserId)).replaceAll(":id", String.valueOf(aId));
 	}
 	
 	public static String getDeleteEventEntriesUrl(long aUserId, long aId, String aRememberToken) {
@@ -206,6 +206,6 @@ public class UrlManager {
 		if (!StringHelper.isValid(aRememberToken)) {
 			return null;
 		}
-		return SCHEME + "://" + BASE_URL + "/" + MANAGE_EVENT_ENTRIES_GET.replaceAll(":id", String.valueOf(aId)).replaceAll(":remember_token", aRememberToken);
+		return SCHEME + "://" + BASE_URL + "/" + MANAGE_EVENT_ENTRIES_GET.replaceAll(":user_id", String.valueOf(aUserId)).replaceAll(":id", String.valueOf(aId)).replaceAll(":remember_token", aRememberToken);
 	}
 }

@@ -87,4 +87,13 @@ public class EventEntry {
 		this.mEventTimestamp = aEventTimestamp;
 		this.mEventRating = aEventRating;
 	}
+	
+	//--------------------------------------------------------------------------------
+	//Implemented Interfaces/Listeners
+	//--------------------------------------------------------------------------------
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.mId + " " + this.mEventDescription + " " + this.mEventRating + " " + this.mEventTimestamp;
+	}
 }

@@ -34,9 +34,16 @@ public class DefaultUserManager extends Manager implements UserManager {
 	//----------------------------------------------------------------------------------------------------
 	//Getters/Setters
 	//----------------------------------------------------------------------------------------------------
+	
+
+	//--------------------------------------------------------------------------------
+	//Interfaces/Listeners
+	//--------------------------------------------------------------------------------
+
 	/**
 	 * @return the currentUser
 	 */
+	@Override
 	public User getCurrentUser() {
 		return this.mCurrentUser;
 	}
@@ -45,14 +52,12 @@ public class DefaultUserManager extends Manager implements UserManager {
 	 * 
 	 * @param aUser the current user to set
 	 */
+	@Override
 	public void setCurrentUser(User aUser) {
 		this.mCurrentUser = aUser;
 	}
-
-	//--------------------------------------------------------------------------------
-	//Interfaces/Listeners
-	//--------------------------------------------------------------------------------
-
+	
+	
 	@Override
 	public void listUsers() {
 

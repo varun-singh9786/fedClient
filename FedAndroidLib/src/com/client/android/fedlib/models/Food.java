@@ -18,6 +18,7 @@ public class Food {
 	//--------------------------------------------------------------------------------
 	//Properties
 	//--------------------------------------------------------------------------------
+	private long mId;
 	private String mFoodName;
 	private String mCookedDescription;
 	
@@ -25,6 +26,22 @@ public class Food {
 	//----------------------------------------------------------------------------------------------------
 	//Getters/Setters
 	//----------------------------------------------------------------------------------------------------
+	
+	/**
+	 * @return
+	 */
+	@JsonProperty("id")
+	public long getId() {
+		return this.mId;
+	}
+	
+	/**
+	 * @param long aId
+	 */
+	public void setId(long aId) {
+		this.mId = aId;
+	}
+	
 	/**
 	 * 
 	 * @return

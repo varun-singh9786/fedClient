@@ -17,6 +17,16 @@ public interface UserManager{
 	
 	
 	/**
+	 * Implement this to return the current user
+	 */
+	public User getCurrentUser();
+	
+	/**
+	 * Implement this to set the current user
+	 * @param aUser
+	 */
+	public void setCurrentUser(User aUser);
+	/**
 	 * Implement this to list all the users
 	 */
 	public void listUsers();

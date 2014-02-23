@@ -9,9 +9,9 @@
     tools:context=".MainActivity" 
     android:id="@+id/parent_layout">
     
-    <ListView 
-        android:id="@+id/list"
+    <include 
+        layout="@layout/form_event_entry"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"></ListView>
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>
